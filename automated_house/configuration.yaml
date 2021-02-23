@@ -1,0 +1,27 @@
+server:
+  host: "0.0.0.0"
+  port: 8080
+
+relays:
+  - name: "Свет (не работает)"
+    bcm_pin: 5
+    phrase_on: "включи свет номер один"
+    phrase_off: "выключи свет номер один"
+  - name: "Свет на столе"
+    bcm_pin: 17
+    phrase_on: "включи свет номер два"
+    phrase_off: "выключи свет номер два"
+buttons:
+  - name: "Light test button"
+    bcm_pin: 27
+    control_pin: 17
+dht11s:
+  - name: "Температура и влажность на столе"
+    bcm_pin: 22
+    phrase: "TODO какая температура"
+cameras:
+  - id: 0
+    name: "Камера на входе" 
+    url: "rtsp://192.168.1.10:554/user=admin&password=&channel=1&stream=1.sdp?real_stream"
+
+call_sign: "эй ты"
