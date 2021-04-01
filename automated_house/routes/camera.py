@@ -1,6 +1,6 @@
 from aiohttp import web
 from traceback import format_exc
-from .utils import id_from_str
+from .utils import pin_parse
 
 
 async def get_current_frame(request):
@@ -9,7 +9,7 @@ async def get_current_frame(request):
         ?id=camera-1
     """
     try:
-        id = id_from_str(request.rel_url.query["id"])
+        _, id = pin_parse(request.rel_url.query["id"])
         camera = request.app["cameras"][id]
         response = web.Response(body=camera.current_frame, headers={"Content-Type": "image/jpeg"})
     except:

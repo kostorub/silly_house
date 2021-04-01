@@ -13,9 +13,13 @@ relays:
     phrase_off: "выключи свет номер два"
 buttons:
   - name: "Light test button"
-    bcm_pin: 27
+    bcm_pin: 26
     control_pin: 17
-dht11s:
+# dht11s:
+#   - name: "Температура и влажность на столе"
+#     bcm_pin: 22
+#     phrase: "TODO какая температура"
+dht22s:
   - name: "Температура и влажность на столе"
     bcm_pin: 22
     phrase: "TODO какая температура"

@@ -36,6 +36,9 @@ class DeviceList:
                 return device, False
         return None, False
 
+    def __len__(self):
+        return len(self.devices)
+
 class NoDevice(Exception):
     def __init__(self, message):
         self.message = message

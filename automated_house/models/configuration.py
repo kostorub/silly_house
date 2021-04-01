@@ -13,3 +13,6 @@ class Configuration:
 
     def __repr__(self):
         return str(self.config)
+
+    def get(self, key, default=None):
+        return self.config.get(key, default)

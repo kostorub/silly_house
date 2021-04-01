@@ -55,7 +55,7 @@ for (x = 0; x < h2s.length; x++){
 
 async function getDHT11() {
     dht11s.forEach(async (dht11) => {
-        let response = await fetch('/dht11?pin=' + dht11.id, {
+        let response = await fetch('/dht?pin=' + dht11.id, {
                 method: 'GET',
             });
         if (!response.ok) {
@@ -69,6 +69,33 @@ async function getDHT11() {
     });
 }
 setInterval(getDHT11, 10000);
+
+var dht22s = [];
+var h2s = document.getElementsByTagName("h2");
+
+for (x = 0; x < h2s.length; x++){
+    id = h2s[x].getAttribute("id");
+    if(id.startsWith("dht22-")){
+        dht22s.push(h2s[x]);
+    }
+}
+
+async function getDHT22() {
+    dht22s.forEach(async (dht22) => {
+        let response = await fetch('/dht?pin=' + dht22.id, {
+                method: 'GET',
+            });
+        if (!response.ok) {
+            console.error("HTTP-Error: " + response.status + " " + response.text);
+        } else {
+            data = await response.json();
+            if (data.temperature != -1) {
+                dht22.innerHTML = "Температура: " + data.temperature + "°C \nВлажность: " + data.humidity + "%";
+            }
+        }
+    });
+}
+setInterval(getDHT22, 5000);
 
 async function get_current_frame(obj) {
     let response = await fetch('/camera/current_frame?id=' + obj.id, {
