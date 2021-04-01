@@ -3,6 +3,11 @@ Description=My Silly House
 After=network.target
 [Service]
 Type=idle
-ExecStart=/home/pi/git/automated_house/start.sh
+StartLimitIntervalSec=30s
+KillMode=process
+Environment=SERVER_CONFIG_PATH=/home/pi/git/automated_house/automated_house
+ExecStart=/home/pi/git/automated_house/venv/bin/python3 -u /home/pi/git/automated_house/automated_house/app.py
+Restart=always
+SendSIGKILL=yes
 [Install]
 WantedBy=multi-user.target
