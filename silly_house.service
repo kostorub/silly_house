@@ -1,0 +1,8 @@
+[Unit]
+Description=My Silly House
+After=network.target
+[Service]
+Type=idle
+ExecStart=/home/pi/git/automated_house/start.sh
+[Install]
+WantedBy=multi-user.target
