@@ -6,3 +6,5 @@ PyYAML==5.4.1
 dht11==0.1.0
 Adafruit-Blinka==6.4.2
 adafruit-circuitpython-dht==3.6.0
+pyaudio==0.2.11
+vosk==0.3.21
