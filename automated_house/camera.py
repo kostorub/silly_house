@@ -1,21 +1,29 @@
 import numpy as np
 import cv2 as cv
 from config import config
-from asyncio import sleep
-from models.camera import Camera
+from time import sleep
+from traceback import format_exc
 
 
-async def video_capture(camera: Camera):
-    cap = cv.VideoCapture(camera.url)
+def video_capture(camera):
+    while True:
+        try:
+            cap = cv.VideoCapture(camera.url)
 
-    while cap.isOpened():
-        ret, frame = cap.read()
-        if not ret:
-            print("Can't receive frame (stream end?). Exiting ...")
+            while cap.isOpened():
+                ret, frame = cap.read()
+                if not ret:
+                    print("Can't receive frame (stream end?). Exiting ...")
+                    break
+                retval, current_frame = cv.imencode('.jpg', frame)
+                camera.current_frame = current_frame.tobytes()
+                sleep(0)
+            # Release everything if job is finished
+            cap.release()
+            cv.destroyAllWindows()
+        except BrokenPipeError:
             break
-        retval, current_frame = cv.imencode('.jpg', frame)
-        camera.current_frame = current_frame.tobytes()
-        await sleep(0)
-    # Release everything if job is finished
-    cap.release()
-    cv.destroyAllWindows()
+        except Exception as e:
+            print(e)
+            print(format_exc())
+        sleep(10)
