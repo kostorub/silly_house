@@ -8,3 +8,4 @@ Adafruit-Blinka==6.4.2
 adafruit-circuitpython-dht==3.6.0
 pyaudio==0.2.11
 vosk==0.3.21
+rpi-rf==0.9.7
