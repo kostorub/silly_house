@@ -9,5 +9,5 @@ rf_device = RFDevice(17, tx_pulselength=433)
 rf_device.enable_tx()
 
 rf_device.tx_code(code_on)
-sleep(0.8)
+sleep(2)
 rf_device.tx_code(code_off)
