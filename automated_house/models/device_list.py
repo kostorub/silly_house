@@ -26,6 +26,9 @@ class DeviceList:
 
     def append(self, value):
         self.devices.append(value)
+    
+    def extend(self, value):
+        self.devices.extend(value)
 
     def find_similar_phrase(self, text):
         phrases = text.split()

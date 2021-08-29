@@ -13,6 +13,7 @@ from speech_recognition import SpeechRecognition
 from models.dht11 import DHT11
 from models.dht22 import DHT22
 from models.relay import Relay
+from models.relay433 import Relay433
 from config import config
 from routes.index import index 
 from routes.relay import switch_relay, get_relay_status 
@@ -31,6 +32,14 @@ relays = DeviceList([
         relay["phrase_on"],
         relay["phrase_off"],
         relay["name"]) for relay in config.get("relays", [])])
+relays433 = [
+    Relay433(
+        relay["code_on"],
+        relay["code_off"],
+        relay["name"],
+        relay["phrase_on"],
+        relay["phrase_off"]) for relay in config.get("relays433", [])]
+relays.extend(relays433)
 
 buttons = DeviceList([
     Button(

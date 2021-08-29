@@ -11,6 +11,12 @@ relays:
     bcm_pin: 17
     phrase_on: "включи свет номер два"
     phrase_off: "выключи свет номер два"
+relays433:
+  - name: "Свет у гаража"
+    code_on: 16777200
+    code_off: 16777201
+    phrase_on: "включи свет номер один"
+    phrase_off: "выключи свет номер один"
 buttons:
   - name: "Light test button"
     bcm_pin: 26
