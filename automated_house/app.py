@@ -2,6 +2,7 @@ import os
 import struct
 import asyncio
 from functools import partial
+import multiprocessing as mp
 
 import aiohttp_jinja2
 import jinja2
@@ -60,20 +61,27 @@ dht22s = DeviceList([
         dht22["name"],
         dht22["phrase"]) for dht22 in config.get("dht22s", [])])
 
-cameras = DeviceList([
-    Camera(
-        camera["id"],
-        camera["name"],
-        camera["url"]) for camera in config.get("cameras", [])])
+manager = mp.Manager()
 
+cameras = DeviceList()
+for camera in config.get("cameras", []):
+    c = manager.Namespace()
+    c.id = camera["id"]
+    c.name = camera["name"]
+    c.url = camera["url"]
+    c.current_frame = None
+    cameras.append(c)
+    p = mp.Process(target=video_capture, args=(c,))
+    p.start()
 
 loop = asyncio.get_event_loop()
 
 # model_path = os.environ.get("MODEL_PATH", "automated_house/model")
 # sr = SpeechRecognition(model_path, config, relays, loop)
 
-for camera in cameras:
-    loop.create_task(video_capture(camera))
+
+# for camera in cameras:
+#     loop.create_task(video_capture(camera))
 
 app = web.Application()
 app["relays"] = relays
